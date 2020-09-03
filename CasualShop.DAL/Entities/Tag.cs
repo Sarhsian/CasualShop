@@ -5,14 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CasualShop.Models
+namespace CasualShop.DAL.Entities
 {
-    [Table("Brands_tbl")]
-    public class Brand
+    [Table("Tags_tbl")]
+    public class Tag
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public ICollection<Clothes> Clothes { get; set; }
     }
 }

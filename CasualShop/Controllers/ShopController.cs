@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace CasualShop.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class ShopController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ShopController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ShopController(ILogger<ShopController> logger)
         {
             _logger = logger;
         }

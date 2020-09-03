@@ -1,31 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CasualShop.Migrations.Shop
+namespace CasualShop.DAL.Migrations
 {
-    public partial class addedTagsAndClothes : Migration
+    public partial class Init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Brands",
-                table: "Brands");
-
-            migrationBuilder.RenameTable(
-                name: "Brands",
-                newName: "Brands_tbl");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Brands_tbl",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Brands_tbl",
-                table: "Brands_tbl",
-                column: "Id");
+            migrationBuilder.CreateTable(
+                name: "Brands_tbl",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brands_tbl", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Tags_tbl",
@@ -50,7 +42,8 @@ namespace CasualShop.Migrations.Shop
                     Price = table.Column<int>(nullable: false),
                     ClothesBrandId = table.Column<int>(nullable: true),
                     TagId = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,27 +79,10 @@ namespace CasualShop.Migrations.Shop
                 name: "Clothes_tbl");
 
             migrationBuilder.DropTable(
+                name: "Brands_tbl");
+
+            migrationBuilder.DropTable(
                 name: "Tags_tbl");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Brands_tbl",
-                table: "Brands_tbl");
-
-            migrationBuilder.RenameTable(
-                name: "Brands_tbl",
-                newName: "Brands");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Brands",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Brands",
-                table: "Brands",
-                column: "Id");
         }
     }
 }

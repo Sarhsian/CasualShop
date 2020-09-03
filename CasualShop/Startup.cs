@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CasualShop.DAL;
 using CasualShop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,8 +27,8 @@ namespace CasualShop
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("CasualShopDbContextConnection");
-            services.AddDbContext<ShopContext>(options => options.UseSqlServer(connection));
             
+            services.AddDbContext<EFDBContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("CasualShop.DAL")));           
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -57,7 +58,7 @@ namespace CasualShop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Shop}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
