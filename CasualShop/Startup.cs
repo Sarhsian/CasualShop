@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CasualShop.DAL;
+using CasualShop.DAL.Repository;
+using CasualShop.DAL.Repository.Implementations;
+using CasualShop.DAL.Repository.Interfaces;
 using CasualShop.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +31,14 @@ namespace CasualShop
         {
             string connection = Configuration.GetConnectionString("CasualShopDbContextConnection");
             
-            services.AddDbContext<EFDBContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("CasualShop.DAL")));           
+            services.AddDbContext<EFDBContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("CasualShop.DAL")));
+
+            //dependency injection
+            services.AddTransient<IClothesRepository, EFClothesRepository>();
+            services.AddTransient<ITagsRepository, EFTagsRepository>();
+            services.AddTransient<IBrandsRepository, EFBrandsRepository>();
+
+            services.AddScoped<DataManager>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

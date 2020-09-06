@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CasualShop.Models;
 using Microsoft.AspNetCore.Authorization;
+using CasualShop.DAL.Repository;
+using CasualShop.DAL.Entities;
+using CasualShop.BLL;
 
 namespace CasualShop.Controllers
 {
@@ -14,15 +17,22 @@ namespace CasualShop.Controllers
     public class ShopController : Controller
     {
         private readonly ILogger<ShopController> _logger;
+        private DataManager _dataManager;
+        private ServicesManager _serviceManager;
 
-        public ShopController(ILogger<ShopController> logger)
+        public ShopController(ILogger<ShopController> logger, DataManager dataManager)
         {
             _logger = logger;
+            _dataManager = dataManager;
+            _serviceManager = new ServicesManager(dataManager);
         }
 
         public IActionResult Index()
         {
-            return View();
+            //List<Clothes> _clothes = _dataManager.Clothes.GetAllClothes().ToList();
+            var _clothes = _serviceManager.Brands.GetBrandsList();
+
+            return View(_clothes);
         }
 
         public IActionResult Privacy()
