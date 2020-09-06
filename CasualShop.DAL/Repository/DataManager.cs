@@ -9,18 +9,18 @@ namespace CasualShop.DAL.Repository
     {
         private readonly IClothesRepository _clothesRepository;
         private readonly IBrandsRepository _brandsRepository;
-        //private ITagsRepository _tagsRepository;
+        private ITagsRepository _tagsRepository;
 
         public DataManager(IClothesRepository clothesRepository, ITagsRepository tagsRepository, IBrandsRepository brandsRepository)
         {
             _clothesRepository = clothesRepository;
             _brandsRepository = brandsRepository;
-            //_tagsRepository = tagsRepository;
+            _tagsRepository = tagsRepository;
         }
 
         public IClothesRepository Clothes { get { return _clothesRepository; } }
         public IBrandsRepository Brands { get { return _brandsRepository; } }
-        //public IClothesRepository Tags { get { return _tagsRepository; } }
+        public ITagsRepository Tags { get { return _tagsRepository; } }
 
 
     }

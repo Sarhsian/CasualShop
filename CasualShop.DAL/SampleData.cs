@@ -51,6 +51,114 @@ namespace CasualShop.DAL
                     Price = 499,
                     Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
                 });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
+                context.Clothes.Add(new Entities.Clothes()
+                {
+                    Name = "Red evil selection",
+                    ClothesBrand = context.Brands.FirstOrDefault(b => b.Id == 3),
+                    Description = "Something interesting that you would like",
+                    //Image
+                    Price = 499,
+                    Tag = context.Tags.FirstOrDefault(t => t.Id == 3)
+                });
                 context.SaveChanges();
 
             }

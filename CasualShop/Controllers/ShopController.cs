@@ -30,9 +30,14 @@ namespace CasualShop.Controllers
         public IActionResult Index()
         {
             //List<Clothes> _clothes = _dataManager.Clothes.GetAllClothes().ToList();
-            var _clothes = _serviceManager.Brands.GetBrandsList();
+            var _clothes = _serviceManager.Clothes.GetClothesList();
 
             return View(_clothes);
+        }
+
+        public IActionResult ClothesInfo(int id)
+        {
+            return View(_serviceManager.Clothes.GetClothesModelById(id));
         }
 
         public IActionResult Privacy()

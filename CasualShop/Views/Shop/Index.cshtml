@@ -1,15 +1,63 @@
-﻿@model List<CasualShop.BLL.DtoModels.BrandDto>
+﻿@model List<CasualShop.BLL.DtoModels.ClothesDto>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Main Page";
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    @foreach (var item in Model)
-    {
-        <h3>
-            @item.Name
-        </h3>
+
+<style>
+    .shop-title {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 90px;
+        background-color: darkorange;
+        font-size: 200%;
     }
+    .card-margin{
+        margin-top: 20px;
+    }
+</style>
+
+<div class="shop-title">Casual shop best prices</div>
+
+<div class="container">
+
+    <div class="row">
+        @foreach (var clothes in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-12 d-flex align-items-stretch card-margin">
+                <div class="card">
+                    <div class="card-img-top">
+                        <img class="img-fluid img-container" src="https://investfuture.ru/images/no_img.jpeg" />
+                    </div>
+                    <div class="card-header">
+                        @clothes.Name
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            @if (clothes.Description.Length > 50)
+                            {
+                                <div>@clothes.Description.Substring(0, 50)...</div>
+                            }
+                            else
+                            {
+                                <div>@clothes.Description</div>
+                            }
+                        </div>
+                        <div class="card-text">
+                            Price: @clothes.Price $
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button onclick="location.href='@Url.Action("ClothesInfo","Shop",new {id = clothes.Id })'" class="btn border-warning text-warning">
+                            BUY
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+
 </div>

@@ -1,0 +1,93 @@
+﻿@model CasualShop.BLL.DtoModels.ClothesDto
+@{
+    ViewData["Title"] = "ClothesInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .clothes-title {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 180px;
+        background-color: darkorange;
+        font-size: 200%;
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .red-button-margin {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .red-button-style {
+        height: 54px;
+        width: 263.3px;
+    }
+</style>
+
+<div class="clothes-title">@Model.Name</div>
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-img-top">
+                        <div>PRICE</div>
+                    </div>
+                    <div class="card-header">
+                        @Model.Price $
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-img-top">
+                        <div>TAG</div>
+                    </div>
+                    <div class="card-header">
+                        Tag: @Model.Tag
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-img-top">
+                        <div>(In development)</div>
+                    </div>
+                    <div class="card-header">
+                        (In development)
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-img-top">
+                        <div>(In development)</div>
+                    </div>
+                    <div class="card-header">
+                        (In development)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="red-button-margin wrapper">
+        <button class="btn-danger red-button-style" 
+                onclick="location.href='@Url.Action("Index","Shop")'">ADD TO BASKET</button>
+    </div>
+    <div class="wrapper">
+        <h3>@Model.Name</h3>
+    </div>
+    <div class="wrapper">
+        <p>
+            @Model.Description
+        </p>
+    </div>
+</div>
+
+
