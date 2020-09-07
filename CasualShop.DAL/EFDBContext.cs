@@ -12,6 +12,7 @@ namespace CasualShop.DAL
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Clothes> Clothes { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
 
         public EFDBContext(DbContextOptions<EFDBContext> options) : base(options) { }
 
