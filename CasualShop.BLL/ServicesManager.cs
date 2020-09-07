@@ -12,6 +12,7 @@ namespace CasualShop.BLL
         private ClothesService _clothesService;
         //private TagService _tagService;
         private BrandService _brandService;
+        private BasketService _basketService;
         public ServicesManager(
             DataManager dataManager
             )
@@ -19,8 +20,10 @@ namespace CasualShop.BLL
             _dataManager = dataManager;
             _brandService = new BrandService(_dataManager);
             _clothesService = new ClothesService(_dataManager);
+            _basketService = new BasketService(_dataManager);
         }
         public BrandService Brands { get { return _brandService; } }
         public ClothesService Clothes { get { return _clothesService; } }
+        public BasketService Baskets { get { return _basketService; } }
     }
 }
