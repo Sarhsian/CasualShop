@@ -1,4 +1,6 @@
-﻿@model List<CasualShop.BLL.DtoModels.ClothesDto>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<CasualShop.BLL.DtoModels.ClothesDto>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper*,ReflectionIT.Mvc.Paging
 
 @{
     ViewData["Title"] = "Main Page";
@@ -55,9 +57,14 @@
                     </div>
                 </div>
             </div>
-        }
-
-
+        }    
+    <div>
+        <nav aria-label="Clothes navigation supplier">
+            @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+        </nav>
+    </div>
+       
+        
     </div>
 
 </div>

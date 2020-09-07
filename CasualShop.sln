@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasualShop.DAL", "CasualSho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasualShop", "CasualShop\CasualShop.csproj", "{2BFEB4EC-DE10-47CB-AEED-149D61A722CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasualShop.BLL", "CasualShop.BLL\CasualShop.BLL.csproj", "{5ED874DE-0AB7-4DBD-A561-C48124A331B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasualShop.BLL", "CasualShop.BLL\CasualShop.BLL.csproj", "{5ED874DE-0AB7-4DBD-A561-C48124A331B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

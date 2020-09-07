@@ -8,8 +8,8 @@ using Microsoft.Extensions.Logging;
 using CasualShop.Models;
 using Microsoft.AspNetCore.Authorization;
 using CasualShop.DAL.Repository;
-using CasualShop.DAL.Entities;
 using CasualShop.BLL;
+using ReflectionIT.Mvc.Paging;
 
 namespace CasualShop.Controllers
 {
@@ -27,12 +27,13 @@ namespace CasualShop.Controllers
             _serviceManager = new ServicesManager(dataManager);
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            //List<Clothes> _clothes = _dataManager.Clothes.GetAllClothes().ToList();
             var _clothes = _serviceManager.Clothes.GetClothesList();
+            var model = PagingList.Create(_clothes, 6, page);
+            //var _clothes = _serviceManager.Clothes.GetClothesList();
 
-            return View(_clothes);
+            return View(model);
         }
 
         public IActionResult ClothesInfo(int id)
