@@ -17,6 +17,9 @@
     .card-margin{
         margin-top: 20px;
     }
+    .card-style{
+        background: #000000;
+    }
 </style>
 
 <div class="shop-title">Casual shop best prices</div>
@@ -27,7 +30,7 @@
         @foreach (var clothes in Model)
         {
             <div class="col-lg-4 col-md-6 col-12 d-flex align-items-stretch card-margin">
-                <div class="card">
+                <div class="card text-white bg-dark mb-3">
                     <div class="card-img-top">
                         <img class="img-fluid img-container" src="https://investfuture.ru/images/no_img.jpeg" />
                     </div>
