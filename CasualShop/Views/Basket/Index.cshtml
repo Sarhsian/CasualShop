@@ -1,8 +1,37 @@
-﻿
+﻿@model List<CasualShop.BLL.DtoModels.BasketDto>
+
+@using Microsoft.AspNetCore.Identity
+@using CasualShop.Areas.Identity.Data
+@using CasualShop.BLL
+
+@inject ServicesManager ServiceManager
+@inject SignInManager<CasualShopUser> SignInManager
+@inject UserManager<CasualShopUser> UserManager
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Basket</h1>
+@if (@SignInManager.IsSignedIn(User))
+{
+    foreach (var item in Model)
+    {
+        if (@UserManager.GetUserId(User) == item.CurrentUser && item.isProcessed == false)
+        {
+            <div>
+                Name: @ServiceManager.Clothes.GetClothesModelById(item.ClothesId).Name
+            </div>
+        }
+    }
+<button onclick="location.href='@Url.Action("MakeOrder","Basket",new {
+                               basketCurrentUserId = UserManager.GetUserId(User),
+                           firstName = "Andrew",
+                           lastName = "Fedorenko",
+                           phoneNum = "123234324",
+                           email = "asdasdasdasd"})'">Make order</button>
+}
+
+
 

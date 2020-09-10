@@ -33,7 +33,8 @@ namespace CasualShop.DAL.Repository.Implementations
 
         public void SaveBaskets(Basket basket)
         {
-            context.Entry(basket).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            //context.Entry(basket).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.Add(basket);
             context.SaveChanges();
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CasualShop.BLL;
 using CasualShop.DAL;
 using CasualShop.DAL.Repository;
 using CasualShop.DAL.Repository.Implementations;
@@ -40,6 +41,7 @@ namespace CasualShop
             services.AddTransient<IBrandsRepository, EFBrandsRepository>();
             services.AddTransient<IBasketsRepository, EFBasketRepository>();
 
+            services.AddScoped<ServicesManager>();
             services.AddScoped<DataManager>();
             services.AddControllersWithViews();
             services.AddRazorPages();

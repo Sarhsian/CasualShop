@@ -1,4 +1,5 @@
 ﻿using CasualShop.BLL.DtoModels;
+using CasualShop.DAL.Entities;
 using CasualShop.DAL.Repository;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,71 @@ namespace CasualShop.BLL.Services
                 Tag = new TagDto { Id = _clothes.Tag.Id, Name = _clothes.Tag.Name }
             };
         }
+
+        public ClothesEditDto GetClothesEditDto(int clothesId = 0)
+        {
+            if (clothesId != 0)
+            {
+                var _clothesDb = _dataManager.Clothes.GetClothesById(clothesId);
+                var _clothesEditDto = new ClothesEditDto()
+                {                   
+                    Id = _clothesDb.Id,
+                    ClothesBrand = new BrandEditDto
+                    {
+                        Id = _clothesDb.ClothesBrand.Id,
+                        Name = _clothesDb.ClothesBrand.Name
+                    },
+                    Tag = new TagEditDto
+                    {
+                        Id = _clothesDb.Tag.Id,
+                        Name = _clothesDb.Name
+                    },
+                    Description = _clothesDb.Description,
+                    Image = "",
+                    Name = _clothesDb.Name,
+                    Price = _clothesDb.Price                                       
+                };
+                return _clothesEditDto;
+            }
+            else { return new ClothesEditDto() { }; }
+        }
+
+        public ClothesDto SaveClothesEditDtoToDb(ClothesEditDto clothesEditDto)
+        {
+            Clothes _clothesDbModel;
+            if (clothesEditDto.Id != 0)
+            {
+                _clothesDbModel = _dataManager.Clothes.GetClothesById(clothesEditDto.Id);
+            }
+            else
+            {
+                _clothesDbModel = new Clothes();
+            }
+            _clothesDbModel.Name = clothesEditDto.Name;
+            _clothesDbModel.Price = clothesEditDto.Price;
+            _clothesDbModel.Image = "";
+            _clothesDbModel.Description = clothesEditDto.Description;
+            _clothesDbModel.ClothesBrand = new Brand
+            {
+                Id = clothesEditDto.ClothesBrand.Id,
+                Name = clothesEditDto.ClothesBrand.Name
+            };
+            _clothesDbModel.Tag = new Tag
+            {
+                Id = clothesEditDto.Tag.Id,
+                Name = clothesEditDto.Tag.Name
+            };
+                    
+            _dataManager.Clothes.SaveClothes(_clothesDbModel);
+
+            return GetClothesModelById(_clothesDbModel.Id);
+        }
+
+        public ClothesEditDto CreateClothesEditDto()
+        {
+            return new ClothesEditDto() { };
+        }
+
 
 
     }

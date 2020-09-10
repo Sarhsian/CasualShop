@@ -12,6 +12,7 @@ namespace CasualShop.BLL.DtoModels
 
     public class BrandEditDto
     {
-        public int BrandId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

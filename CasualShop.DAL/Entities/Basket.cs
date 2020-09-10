@@ -12,7 +12,8 @@ namespace CasualShop.DAL.Entities
         [Key]
         public int Id { get; set; }
         public  string CurrentUser { get; set; }
-        public Clothes BasketClothes { get; set; }
-        public int Count { get; set; }       
+        public int BasketClothesId { get; set; }
+        public int Count { get; set; }
+        public bool isProcessed { get; set; } = false;
     }
 }

@@ -4,14 +4,16 @@ using CasualShop.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CasualShop.DAL.Migrations
 {
     [DbContext(typeof(EFDBContext))]
-    partial class EFDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200909130527_updated baskettbl")]
+    partial class updatedbaskettbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace CasualShop.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BasketClothesId")
+                    b.Property<int?>("BasketClothesId")
                         .HasColumnType("int");
 
                     b.Property<int>("Count")
@@ -39,6 +41,8 @@ namespace CasualShop.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BasketClothesId");
 
                     b.ToTable("Baskets_tbl");
                 });
@@ -108,6 +112,13 @@ namespace CasualShop.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags_tbl");
+                });
+
+            modelBuilder.Entity("CasualShop.DAL.Entities.Basket", b =>
+                {
+                    b.HasOne("CasualShop.DAL.Entities.Clothes", "BasketClothes")
+                        .WithMany()
+                        .HasForeignKey("BasketClothesId");
                 });
 
             modelBuilder.Entity("CasualShop.DAL.Entities.Clothes", b =>

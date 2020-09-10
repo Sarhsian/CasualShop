@@ -1,4 +1,5 @@
 ﻿using CasualShop.BLL.DtoModels;
+using CasualShop.DAL.Entities;
 using CasualShop.DAL.Repository;
 using System;
 using System.Collections.Generic;
@@ -34,26 +35,54 @@ namespace CasualShop.BLL.Services
             {
                 Id = _baskets.Id,
                 CurrentUser = _baskets.CurrentUser,
-                BasketClothes = new ClothesDto 
-                {
-                    Id = _baskets.BasketClothes.Id, 
-                    Name = _baskets.BasketClothes.Name,
-                    Description = _baskets.BasketClothes.Description,
-                    ClothesBrand = new BrandDto 
-                    { 
-                        Id = _baskets.BasketClothes.ClothesBrand.Id,
-                        Name = _baskets.BasketClothes.ClothesBrand.Name
-                    },
-                    Tag = new TagDto
-                    {
-                        Id = _baskets.BasketClothes.Tag.Id,
-                        Name = _baskets.BasketClothes.Tag.Name
-                    },
-                    //Image =
-                    Price = _baskets.BasketClothes.Price
-                },
-                
+                ClothesId = _baskets.BasketClothesId,
+                isProcessed = _baskets.isProcessed
             };
         }
+
+        public BasketEditDto GetBasketEditDto(int basketId = 0)
+        {
+            if (basketId != 0)
+            {
+                var _basketDB = _dataManager.Baskets.GetBasketById(basketId);
+                var _basketEditDto = new BasketEditDto()
+                {
+                    //Id = _basketDB.Id,
+                    CurrentUser = _basketDB.CurrentUser,
+                    ClothesId = _basketDB.BasketClothesId,
+                    Count = _basketDB.Count,
+                    isProcessed = _basketDB.isProcessed
+                };
+                return _basketEditDto;
+            }
+            else { return new BasketEditDto() { }; }
+        }
+
+        public BasketDto SaveBasketEditDtoToDb(BasketEditDto basketEditDto)
+        {
+            Basket _basketDbModel;
+            if (basketEditDto.Id != 0)
+            {
+                _basketDbModel = _dataManager.Baskets.GetBasketById(basketEditDto.Id);
+            }
+            else
+            {
+                _basketDbModel = new Basket();
+            }
+            _basketDbModel.CurrentUser = basketEditDto.CurrentUser;
+            _basketDbModel.Count = basketEditDto.Count;
+            _basketDbModel.isProcessed = basketEditDto.isProcessed;
+            _basketDbModel.BasketClothesId = basketEditDto.ClothesId;
+
+            _dataManager.Baskets.SaveBaskets(_basketDbModel);
+
+            return BasketDBToViewModelById(_basketDbModel.Id);
+        }
+
+        public BasketEditDto CreateBasketEditDto()
+        {
+            return new BasketEditDto() {};
+        }
+
     }
 }

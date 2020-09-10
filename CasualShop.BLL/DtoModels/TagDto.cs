@@ -13,6 +13,7 @@ namespace CasualShop.BLL.DtoModels
 
     public class TagEditDto
     {
-        public int TagId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
