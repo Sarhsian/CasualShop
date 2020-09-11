@@ -1,6 +1,9 @@
 ﻿@model ReflectionIT.Mvc.Paging.PagingList<CasualShop.BLL.DtoModels.ClothesDto>
 @using ReflectionIT.Mvc.Paging
+@using CasualShop.BLL
 @addTagHelper*,ReflectionIT.Mvc.Paging
+
+@inject ServicesManager ServiceManager
 
 @{
     ViewData["Title"] = "Main Page";
@@ -14,60 +17,119 @@
         background-color: darkorange;
         font-size: 200%;
     }
-    .card-margin{
-        margin-top: 20px;
+
+    .card-margin {
+        margin-top: 10px;
     }
-    .card-style{
-        background: #000000;
+
+    .paging-style {
+        margin: 4px, 20px, 20px, 20px;
     }
 </style>
 
-<div class="shop-title">Casual shop best prices</div>
+@*layout?*@
+<div class="container" layout="wide-layout">
 
-<div class="container">
+    <div class="row py-2">
+        <div class="col-12 d-flex flex-column align-items-center shop-title">
+            <div class="heading-lg">Casual shop best prices</div>
+        </div>
+    </div>
 
     <div class="row">
-        @foreach (var clothes in Model)
-        {
-            <div class="col-lg-4 col-md-6 col-12 d-flex align-items-stretch card-margin">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-img-top">
-                        <img class="img-fluid img-container" src="https://investfuture.ru/images/no_img.jpeg" />
-                    </div>
-                    <div class="card-header">
-                        @clothes.Name
-                    </div>
-                    <div class="card-body">
-                        <div class="card-text">
-                            @if (clothes.Description.Length > 50)
+
+        @*<div class="btn btn-primary d-block d-lg-none ml-2 mt-2">Filters</div>*@
+
+        <div class="col-12 col-lg-3 d-lg-block d-none">
+            <div>
+                <div class="border-bottom" style="">
+                    <div class="title mb-2 mt-3">Brands</div>
+                    <div class="overflow-auto" style="max-height: 300px;">
+                       
+                        <ul class="list-unstyled">
+                            @foreach (var item in ServiceManager.Brands.GetBrandsList())
                             {
-                                <div>@clothes.Description.Substring(0, 50)...</div>
+                                <li><a href="#" class="m-2"> @item.Name </a></li>
                             }
-                            else
-                            {
-                                <div>@clothes.Description</div>
-                            }
-                        </div>
-                        <div class="card-text">
-                            Price: @clothes.Price $
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button onclick="location.href='@Url.Action("ClothesInfo","Shop",new {id = clothes.Id })'" class="btn border-warning text-warning">
-                            BUY
-                        </button>
+                        </ul>                       
 
                     </div>
                 </div>
+
+                <div class="border-bottom" style="">
+                    <div class="title mb-2 mt-3">Tags</div>
+                    <div>
+                        <ul class="list-unstyled">                            
+                            <li><a href="#" class="m-2"> (In development) </a></li>
+                        </ul>
+                    </div>
+                </div>
+                                
+                <div class="border-bottom" style="">
+                    <div class="title mb-2 mt-3">Price</div>
+                    <div>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="m-2"> 10 - 100 </a></li>
+                            <li><a href="#" class="m-2"> 200 - 500 </a></li>
+                            <li><a href="#" class="m-2"> 500 - more </a></li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
-        }    
-    <div>
-        <nav aria-label="Clothes navigation supplier">
-            @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
-        </nav>
-    </div>
-       
-        
+            <div class="d-none d-lg-block"></div>
+        </div>
+
+        @*<div class="btn btn-outline-primary d-none ml-2 my-3"> Close filters </div>*@
+
+        <div class="col-12 col-lg-9">
+
+            <div>
+                <div class="row">
+                    @foreach (var clothes in Model)
+                    {
+                        <div class="col-6 col-lg-3 p-2 d-flex align-items-stretch card-margin">
+                            <div class="card text-white bg-dark mb-3">
+                                <div class="card-img-top">
+                                    <img class="img-fluid img-container" src="https://investfuture.ru/images/no_img.jpeg" />
+                                </div>
+                                <div class="card-header">
+                                    @clothes.Name
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-text">
+                                        @if (clothes.Description.Length > 50)
+                                        {
+                                            <div>@clothes.Description.Substring(0, 50)...</div>
+                                        }
+                                        else
+                                        {
+                                            <div>@clothes.Description</div>
+                                        }
+                                    </div>
+                                    <div class="card-text">
+                                        Price: @clothes.Price $
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button onclick="location.href='@Url.Action("ClothesInfo","Shop",new {id = clothes.Id })'" class="btn border-warning text-warning">
+                                        BUY
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
     </div>
 
+<div class="d-flex justify-content-center">
+    <nav aria-label="Clothes navigation supplier">
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+    </nav>
 </div>
+</div>
+

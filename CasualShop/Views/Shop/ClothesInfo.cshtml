@@ -37,7 +37,56 @@
     }
 </style>
 
-<div class="clothes-title">@Model.Name</div>
+<div layout="wide-layout">
+    <div class="container py-4 py-md-5">
+        <div class="row">
+            <div class="col 12 col-md-7">
+
+                <div>
+                    <div class="embed-responsive embed-responsive-4by3 position-relative">
+                        <div class="embed-responsive-item" style="z-index: 1;">
+                        <img src="https://investfuture.ru/images/no_img.jpeg" class="img-fluid w-100">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-5">
+
+                <div class="heading-md mt-4" style="font-size: 26px;">@Model.Name</div>
+                <div class="mt-2">@*Size*@(In development)</div>
+                <div class="mt-4 d-flex align-items-center">
+                    <span class="price price-current">@Model.Price $</span><!---->
+                </div>
+                <div class="mt-4"> Brand: <a href="/brand-zara" class="">@Model.ClothesBrand.Name</a></div>
+                <div class="mt-2">
+                    Tag:
+                    <div class="d-inline-block border rounded-pill border-dark px-2 mr-2">@Model.Tag.Name</div>
+                </div>
+                <div class="mt-2">
+                    <div>Description:</div>
+                    <div>@Model.Description</div>
+                </div>
+                <div>
+                    <button class="btn btn-dark d-flex justify-content-center align-items-center my-4 py-3 px-5 font-weight-light text-nowrap" 
+                            style="font-size: 24px;"
+                            onclick="location.href='@Url.Action("AddBasket","Basket", 
+                                       new { userId = UserManager.GetUserId(User), clothesId = Model.Id})'"> Add to basket </button>
+                </div>
+                
+
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+@*<div class="clothes-title">@Model.Name</div>
 <div>
     <div class="container">
         <div class="row">
@@ -57,7 +106,7 @@
                         <div>TAG</div>
                     </div>
                     <div class="card-header">
-                        Tag: @Model.Tag
+                        Tag: @Model.Tag.Name
                     </div>
                 </div>
             </div>
@@ -101,6 +150,6 @@
             @Model.Description
         </p>
     </div>
-</div>
+</div>*@
 
 

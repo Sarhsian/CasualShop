@@ -30,7 +30,7 @@ namespace CasualShop.Controllers
         public IActionResult Index(int page = 1)
         {
             var _clothes = _serviceManager.Clothes.GetClothesList();
-            var model = PagingList.Create(_clothes, 6, page);
+            var model = PagingList.Create(_clothes, 8, page);
             //var _clothes = _serviceManager.Clothes.GetClothesList();
 
             return View(model);
