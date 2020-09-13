@@ -4,18 +4,20 @@ using CasualShop.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CasualShop.DAL.Migrations
 {
     [DbContext(typeof(EFDBContext))]
-    partial class EFDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200912071451_added Images")]
+    partial class addedImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -66,14 +68,14 @@ namespace CasualShop.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BrandId")
+                    b.Property<int?>("ClothesBrandId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -87,9 +89,7 @@ namespace CasualShop.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("ImageId");
+                    b.HasIndex("ClothesBrandId");
 
                     b.HasIndex("TagId");
 
@@ -132,16 +132,12 @@ namespace CasualShop.DAL.Migrations
 
             modelBuilder.Entity("CasualShop.DAL.Entities.Clothes", b =>
                 {
-                    b.HasOne("CasualShop.DAL.Entities.Brand", "Brand")
-                        .WithMany("Clotheses")
-                        .HasForeignKey("BrandId");
-
-                    b.HasOne("CasualShop.DAL.Entities.Image", "Image")
-                        .WithMany("Clotheses")
-                        .HasForeignKey("ImageId");
+                    b.HasOne("CasualShop.DAL.Entities.Brand", "ClothesBrand")
+                        .WithMany()
+                        .HasForeignKey("ClothesBrandId");
 
                     b.HasOne("CasualShop.DAL.Entities.Tag", "Tag")
-                        .WithMany("Clotheses")
+                        .WithMany("Clothes")
                         .HasForeignKey("TagId");
                 });
 #pragma warning restore 612, 618

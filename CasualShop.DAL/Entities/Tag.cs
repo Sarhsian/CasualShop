@@ -13,7 +13,11 @@ namespace CasualShop.DAL.Entities
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
-        public ICollection<Clothes> Clothes { get; set; }
+        public string Name { get; set; }        
+        public ICollection<Clothes> Clotheses { get; set; }
+        public Tag()
+        {
+            Clotheses = new List<Clothes>();
+        }
     }
 }

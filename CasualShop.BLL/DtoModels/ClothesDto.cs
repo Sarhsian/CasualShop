@@ -12,7 +12,7 @@ namespace CasualShop.BLL.DtoModels
         public BrandDto ClothesBrand { get; set; }
         public TagDto Tag { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public ImageDto Image { get; set; }
     }
 
     public class ClothesEditDto
@@ -23,6 +23,6 @@ namespace CasualShop.BLL.DtoModels
         public BrandEditDto ClothesBrand { get; set; }
         public TagEditDto Tag { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public ImageDto Image { get; set; }
     }
 }

@@ -40,6 +40,8 @@ namespace CasualShop
             services.AddTransient<ITagsRepository, EFTagsRepository>();
             services.AddTransient<IBrandsRepository, EFBrandsRepository>();
             services.AddTransient<IBasketsRepository, EFBasketRepository>();
+            services.AddTransient<IImagesRepository, EFImagesRepository>();
+
 
             services.AddScoped<ServicesManager>();
             services.AddScoped<DataManager>();

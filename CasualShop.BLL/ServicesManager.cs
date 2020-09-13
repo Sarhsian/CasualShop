@@ -13,6 +13,7 @@ namespace CasualShop.BLL
         //private TagService _tagService;
         private BrandService _brandService;
         private BasketService _basketService;
+        
         public ServicesManager(
             DataManager dataManager
             )

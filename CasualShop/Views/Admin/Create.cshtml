@@ -1,0 +1,67 @@
+﻿@model CasualShop.DAL.Entities.Clothes
+@using CasualShop.DAL.Repository
+
+@inject DataManager dataManager
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Clothes</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+      
+        <h2>Adding new clothes</h2>
+
+        @using (Html.BeginForm())
+        {
+    <fieldset>
+        <legend>Clothes</legend>
+
+        <p>
+            Clothes name <br />
+            @Html.EditorFor(model => model.Name);
+        </p>
+
+        <p>
+            Price  <br />
+            @Html.EditorFor(model => model.Price);
+        </p>
+
+        <p>
+            Description  <br />
+            @Html.EditorFor(model => model.Description);
+        </p>
+
+        <p>
+            Brand <br />
+            @Html.DropDownListFor(model => model.BrandId, ViewBag.Brands as SelectList)
+        </p>
+
+        <p>
+            Brand <br />
+            @Html.DropDownListFor(model => model.TagId, ViewBag.Tags as SelectList)
+        </p>
+
+        <p>
+            <input type="submit" value="Add clothes" />
+        </p>
+
+    </fieldset>
+        }
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

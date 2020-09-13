@@ -39,10 +39,12 @@ namespace CasualShop.BLL.Services
             {
                 Id = _clothes.Id,
                 Name = _clothes.Name,
-                ClothesBrand = new BrandDto() { Id = _clothes.ClothesBrand.Id, Name = _clothes.ClothesBrand.Name },
+                ClothesBrand = new BrandDto() { Id = _clothes.Brand.Id, Name = _clothes.Brand.Name },
                 Description = _clothes.Description,
                 Price = _clothes.Price,
-                Image = _clothes.Image,
+                
+                //Image =  new ImageDto() { Id = _clothes.Image.Id, Title = _clothes.Image.Title, ImageName = _clothes.Image.ImageName } ,
+            
                 Tag = new TagDto { Id = _clothes.Tag.Id, Name = _clothes.Tag.Name }
             };
         }
@@ -57,8 +59,8 @@ namespace CasualShop.BLL.Services
                     Id = _clothesDb.Id,
                     ClothesBrand = new BrandEditDto
                     {
-                        Id = _clothesDb.ClothesBrand.Id,
-                        Name = _clothesDb.ClothesBrand.Name
+                        Id = _clothesDb.Brand.Id,
+                        Name = _clothesDb.Brand.Name
                     },
                     Tag = new TagEditDto
                     {
@@ -66,7 +68,12 @@ namespace CasualShop.BLL.Services
                         Name = _clothesDb.Name
                     },
                     Description = _clothesDb.Description,
-                    Image = "",
+                    Image = new ImageDto
+                    { 
+                        Id = _clothesDb.Image.Id,
+                        Title = _clothesDb.Image.Title,
+                        ImageName = _clothesDb.Image.ImageName
+                    },
                     Name = _clothesDb.Name,
                     Price = _clothesDb.Price                                       
                 };
@@ -88,9 +95,14 @@ namespace CasualShop.BLL.Services
             }
             _clothesDbModel.Name = clothesEditDto.Name;
             _clothesDbModel.Price = clothesEditDto.Price;
-            _clothesDbModel.Image = "";
+            _clothesDbModel.Image = new Image 
+            { 
+                Id = _clothesDbModel.Image.Id,
+                Title = _clothesDbModel.Image.Title,
+                ImageName = _clothesDbModel.Image.ImageName
+            };
             _clothesDbModel.Description = clothesEditDto.Description;
-            _clothesDbModel.ClothesBrand = new Brand
+            _clothesDbModel.Brand = new Brand
             {
                 Id = clothesEditDto.ClothesBrand.Id,
                 Name = clothesEditDto.ClothesBrand.Name

@@ -16,9 +16,12 @@ namespace CasualShop.DAL.Entities
         public string Name { get; set; }
         [Required]
         public int Price { get; set; }
-        public Brand ClothesBrand { get; set; }
-        public Tag Tag { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public int? BrandId { get; set; }
+        public Brand Brand { get; set; }
+        public int? TagId { get; set; }
+        public Tag Tag { get; set; }
+        public int? ImageId { get; set; }
+        public Image Image { get; set; }
     }
 }

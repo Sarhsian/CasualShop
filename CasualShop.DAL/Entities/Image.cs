@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace CasualShop.DAL.Entities
 {
-    [Table("Brands_tbl")]
-    public class Brand
+    [Table("Images_tbl")]
+    public class Image
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
+        [Column(TypeName ="nvarchar(50)")]
+        public string Title { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string ImageName { get; set; }
         public ICollection<Clothes> Clotheses { get; set; }
-        public Brand()
+        public Image()
         {
             Clotheses = new List<Clothes>();
         }
-
     }
 }
