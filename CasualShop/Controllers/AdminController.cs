@@ -145,15 +145,16 @@ namespace CasualShop.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var clothes = await _context.Clothes.FindAsync(id);
-
-            var image = await _context.Images.FindAsync(clothes.ImageId);
-
-            //delete image from wwwroot/image
-            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", image.ImageName);
-            if (System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
-            //delete the record
-            _context.Images.Remove(image);
+            if (clothes.ImageId != null)
+            {
+                var image = await _context.Images.FindAsync(clothes.ImageId);
+                //delete image from wwwroot/image
+                var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", image.ImageName);
+                if (System.IO.File.Exists(imagePath))
+                    System.IO.File.Delete(imagePath);
+                //delete the record
+                _context.Images.Remove(image);
+            }
             _context.Clothes.Remove(clothes);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

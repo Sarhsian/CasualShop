@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CasualShop.BLL;
 using CasualShop.BLL.DtoModels;
 using CasualShop.DAL.Repository;
+using CasualShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CasualShop.Controllers
@@ -24,7 +25,7 @@ namespace CasualShop.Controllers
             var model = _servicesManager.Baskets.GetBasketsList();
             return View(model);
         }
-    
+            
         public IActionResult AddBasket(string userId, int clothesId)
         {
             BasketEditDto _editModel = _servicesManager.Baskets.CreateBasketEditDto();
@@ -46,8 +47,8 @@ namespace CasualShop.Controllers
                     
             return View();
         }
-
-        public IActionResult MakeOrder(string basketCurrentUserId, string firstName, string lastName, string phoneNum, string email)
+        [HttpPost]
+        public IActionResult Index(string basketCurrentUserId, string firstName, string lastName, string phoneNum, string email)
         {
             var _basketModel = _servicesManager.Baskets.GetBasketsList().Where(b => b.CurrentUser == basketCurrentUserId);
             
@@ -68,9 +69,10 @@ namespace CasualShop.Controllers
             emailText += "<div style=\"font-weight:bold\">Total price: " + totalPrice.ToString() + "</div></div>"; 
             emailService.SendEmail("sargsyan.mikhail.2017@gmail.com", "CasualShop Order",
                 emailText);
-            return View();
+            return RedirectToAction("Index", "Shop");
         }
     }
+
 
 
 }

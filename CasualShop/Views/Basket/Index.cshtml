@@ -13,25 +13,122 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .imgfit{
+        width: 50px; 
+        height: 50px; 
+        object-fit: cover;
+    }
+</style>
+
 <h1>Basket</h1>
 @if (@SignInManager.IsSignedIn(User))
 {
-    foreach (var item in Model)
-    {
-        if (@UserManager.GetUserId(User) == item.CurrentUser && item.isProcessed == false)
-        {
+    <div class="container">
+        <div class="row">
+            <table class="table table-bordered table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (@UserManager.GetUserId(User) == item.CurrentUser && item.isProcessed == false)
+                        {
+                            <tr>
+                                <th scope="row"></th>
+                                <th>
+                                    @if (ServiceManager.Clothes.GetClothesModelById(item.ClothesId).Image == null)
+                                    {
+                                        <img class="imgfit" src="https://investfuture.ru/images/no_img.jpeg" />
+                                    }
+                                    else
+                                    {
+                                        <img class="imgfit" 
+                                             src="@("~/Image/" + ServiceManager.Clothes.GetClothesModelById(item.ClothesId).Image.ImageName)"
+                                             asp-append-version="true" />
+                                    }
+                                </th>
+                                <th>
+                                    @ServiceManager.Clothes.GetClothesModelById(item.ClothesId).Name
+                                </th>
+                                <th>
+                                    @ServiceManager.Clothes.GetClothesModelById(item.ClothesId).Price
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>       
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
             <div>
-                Name: @ServiceManager.Clothes.GetClothesModelById(item.ClothesId).Name
+                <h3>Making an order</h3>
             </div>
-        }
-    }
-<button onclick="location.href='@Url.Action("MakeOrder","Basket",new {
+        </div>
+
+        <div class="row">
+            <form asp-action="Index" asp-controller="Basket">
+                <div>
+                    <div>                        
+                        <input type="hidden" name="basketCurrentUserId" value="@UserManager.GetUserId(User)"/>
+                    </div>
+                    <div>
+                        <div>
+                            <label>First Name</label>
+                        </div>
+                        <div>
+                            <input name="firstName" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>Last Name</label>
+                        </div>
+                        <div>
+                            <input name="lastName"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>Phone number</label>
+                        </div>
+                        <div>
+                            <input name="phoneNum" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>Email</label>
+                        </div>
+                        <div>
+                            <input name="email"/>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" value="Make order bro"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    @*<button onclick="location.href='@Url.Action("Index","Basket",new {
                                basketCurrentUserId = UserManager.GetUserId(User),
                            firstName = "Andrew",
                            lastName = "Fedorenko",
                            phoneNum = "123234324",
-                           email = "asdasdasdasd"})'">Make order</button>
+                           email = "asdasdasdasd"})'">
+        Make order
+    </button>*@
+    </div>
 }
-
-
-
