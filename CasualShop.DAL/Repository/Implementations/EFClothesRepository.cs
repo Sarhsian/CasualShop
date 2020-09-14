@@ -19,12 +19,12 @@ namespace CasualShop.DAL.Repository.Implementations
 
         public IEnumerable<Clothes> GetAllClothes()
         {
-            return context.Set<Clothes>().Include(x => x.Brand).Include(x => x.Tag).ToList();
+            return context.Set<Clothes>().Include(x => x.Brand).Include(x => x.Tag).Include(x => x.Image).ToList();
         }
 
         public Clothes GetClothesById(int clothesId)
         {
-            return context.Set<Clothes>().Include(x => x.Brand).Include(x => x.Tag).FirstOrDefault(x => x.Id == clothesId);
+            return context.Set<Clothes>().Include(x => x.Brand).Include(x => x.Tag).Include(x => x.Image).FirstOrDefault(x => x.Id == clothesId);
         }
 
         public void SaveClothes(Clothes clothes)

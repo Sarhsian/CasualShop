@@ -11,12 +11,14 @@ namespace CasualShop.BLL.Services
     {
         private DataManager _dataManager;
         private BrandService _brandService;
+        private ImageService _imageService;
         //private TagService _tagService;
 
         public ClothesService(DataManager dataManager)
         {
             _dataManager = dataManager;
             _brandService = new BrandService(dataManager);
+            _imageService = new ImageService(dataManager);
         }
 
         public List<ClothesDto> GetClothesList()
@@ -34,28 +36,40 @@ namespace CasualShop.BLL.Services
         public ClothesDto GetClothesModelById(int clothesId)
         {
             var _clothes = _dataManager.Clothes.GetClothesById(clothesId);
-
-            return new ClothesDto()
+            if (_clothes.Image == null)
             {
-                Id = _clothes.Id,
-                Name = _clothes.Name,
-                ClothesBrand = new BrandDto() { Id = _clothes.Brand.Id, Name = _clothes.Brand.Name },
-                Description = _clothes.Description,
-                Price = _clothes.Price,
-                
-                //Image =  new ImageDto() { Id = _clothes.Image.Id, Title = _clothes.Image.Title, ImageName = _clothes.Image.ImageName } ,
-            
-                Tag = new TagDto { Id = _clothes.Tag.Id, Name = _clothes.Tag.Name }
-            };
+                return new ClothesDto()
+                {
+                    Id = _clothes.Id,
+                    Name = _clothes.Name,
+                    ClothesBrand = new BrandDto() { Id = _clothes.Brand.Id, Name = _clothes.Brand.Name },
+                    Description = _clothes.Description,
+                    Price = _clothes.Price,
+                    Tag = new TagDto { Id = _clothes.Tag.Id, Name = _clothes.Tag.Name }
+                };
+            }
+            else
+            {
+                return new ClothesDto()
+                {
+                    Id = _clothes.Id,
+                    Name = _clothes.Name,
+                    ClothesBrand = new BrandDto() { Id = _clothes.Brand.Id, Name = _clothes.Brand.Name },
+                    Description = _clothes.Description,
+                    Price = _clothes.Price,
+                    Image = new ImageDto() { Id = _clothes.Image.Id, Title = _clothes.Image.Title, ImageName = _clothes.Image.ImageName },
+                    Tag = new TagDto { Id = _clothes.Tag.Id, Name = _clothes.Tag.Name }
+                };
+            }
         }
-
+        
         public ClothesEditDto GetClothesEditDto(int clothesId = 0)
         {
             if (clothesId != 0)
             {
                 var _clothesDb = _dataManager.Clothes.GetClothesById(clothesId);
                 var _clothesEditDto = new ClothesEditDto()
-                {                   
+                {
                     Id = _clothesDb.Id,
                     ClothesBrand = new BrandEditDto
                     {
@@ -69,13 +83,13 @@ namespace CasualShop.BLL.Services
                     },
                     Description = _clothesDb.Description,
                     Image = new ImageDto
-                    { 
+                    {
                         Id = _clothesDb.Image.Id,
                         Title = _clothesDb.Image.Title,
                         ImageName = _clothesDb.Image.ImageName
                     },
                     Name = _clothesDb.Name,
-                    Price = _clothesDb.Price                                       
+                    Price = _clothesDb.Price
                 };
                 return _clothesEditDto;
             }
@@ -95,8 +109,8 @@ namespace CasualShop.BLL.Services
             }
             _clothesDbModel.Name = clothesEditDto.Name;
             _clothesDbModel.Price = clothesEditDto.Price;
-            _clothesDbModel.Image = new Image 
-            { 
+            _clothesDbModel.Image = new Image
+            {
                 Id = _clothesDbModel.Image.Id,
                 Title = _clothesDbModel.Image.Title,
                 ImageName = _clothesDbModel.Image.ImageName
@@ -112,7 +126,7 @@ namespace CasualShop.BLL.Services
                 Id = clothesEditDto.Tag.Id,
                 Name = clothesEditDto.Tag.Name
             };
-                    
+
             _dataManager.Clothes.SaveClothes(_clothesDbModel);
 
             return GetClothesModelById(_clothesDbModel.Id);

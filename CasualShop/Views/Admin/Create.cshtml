@@ -1,8 +1,4 @@
 ﻿@model CasualShop.DAL.Entities.Clothes
-@using CasualShop.DAL.Repository
-
-@inject DataManager dataManager
-
 
 @{
     ViewData["Title"] = "Create";
@@ -15,45 +11,52 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-      
+
         <h2>Adding new clothes</h2>
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="text-danger">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    Brand <br />
+                    @Html.DropDownListFor(model => model.BrandId, ViewBag.Brands as SelectList)
+                </div>
+                <div class="form-group">
+                    Brand <br />
+                    @Html.DropDownListFor(model => model.TagId, ViewBag.Tags as SelectList)
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Image.Title"></label>
+                    <input asp-for="Image.Title" accept="image/*" />
+                    <span asp-validation-for="Image.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image.ImageFile"></label>
+                    <input asp-for="Image.ImageFile" accept="image/*" />
+                    <span asp-validation-for="Image.ImageFile" class="text-danger"></span>
+                </div>
 
-        @using (Html.BeginForm())
-        {
-    <fieldset>
-        <legend>Clothes</legend>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
 
-        <p>
-            Clothes name <br />
-            @Html.EditorFor(model => model.Name);
-        </p>
 
-        <p>
-            Price  <br />
-            @Html.EditorFor(model => model.Price);
-        </p>
-
-        <p>
-            Description  <br />
-            @Html.EditorFor(model => model.Description);
-        </p>
-
-        <p>
-            Brand <br />
-            @Html.DropDownListFor(model => model.BrandId, ViewBag.Brands as SelectList)
-        </p>
-
-        <p>
-            Brand <br />
-            @Html.DropDownListFor(model => model.TagId, ViewBag.Tags as SelectList)
-        </p>
-
-        <p>
-            <input type="submit" value="Add clothes" />
-        </p>
-
-    </fieldset>
-        }
 
     </div>
 </div>
