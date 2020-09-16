@@ -10,7 +10,6 @@ namespace CasualShop.BLL.Services
     public class BasketService
     {
         private DataManager _dataManager;
-
         public BasketService(DataManager dataManager)
         {
             _dataManager = dataManager;
@@ -77,6 +76,13 @@ namespace CasualShop.BLL.Services
             _dataManager.Baskets.SaveBaskets(_basketDbModel);
 
             return BasketDBToViewModelById(_basketDbModel.Id);
+        }
+
+        public void DeleteBasketById(int basketId)
+        {
+            Basket _basketDbModel;            
+            _basketDbModel = _dataManager.Baskets.GetBasketById(basketId);
+            _dataManager.Baskets.DeleteBaskets(_basketDbModel);
         }
 
         public BasketEditDto CreateBasketEditDto()

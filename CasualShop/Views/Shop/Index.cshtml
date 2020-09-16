@@ -41,7 +41,43 @@
         @*<div class="btn btn-primary d-block d-lg-none ml-2 mt-2">Filters</div>*@
 
         <div class="col-12 col-lg-3 d-lg-block d-none">
+            
             <div>
+                <form method="get">
+                    
+                    @*@foreach (var item in ViewBag.Brands)
+                    {
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-check" type="checkbox" name="brand" value="@item.Id" />
+                                </div>
+                                <div class="col">
+                                    <label class="form-check-label">@item.Name</label>
+                                </div>
+                            </div>
+                        </div>
+                    }*@
+
+                    <div>
+                        <label>Brands</label>
+                    </div>
+                    <div>
+                        <select name="brand" asp-items="ViewBag.Brands" class="form-control"></select>
+                    </div>
+                    <div>
+                        <label>Tags </label>
+                    </div>
+                    <div>
+                        <select name="tag" asp-items="ViewBag.Tags" class="form-control"></select>
+                    </div>
+                    <div>
+                        <input type="submit" value="Filter" class="btn btn-dark"/>
+                    </div>
+                </form>
+            </div>
+
+            @*<div>
                 <div class="border-bottom" style="">
                     <div class="title mb-2 mt-3">Brands</div>
                     <div class="overflow-auto" style="max-height: 300px;">
@@ -77,7 +113,8 @@
                 </div>
 
             </div>
-            <div class="d-none d-lg-block"></div>
+            <div class="d-none d-lg-block"></div>*@
+
         </div>
 
         @*<div class="btn btn-outline-primary d-none ml-2 my-3"> Close filters </div>*@
@@ -135,7 +172,7 @@
     </div>
 
 <div class="d-flex justify-content-center">
-    <nav aria-label="Clothes navigation supplier">
+    <nav aria-label="Clothes navigation supplier">        
         @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
     </nav>
 </div>

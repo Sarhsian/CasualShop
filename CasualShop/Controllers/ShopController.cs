@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 using CasualShop.DAL.Repository;
 using CasualShop.BLL;
 using ReflectionIT.Mvc.Paging;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using CasualShop.BLL.DtoModels;
 
 namespace CasualShop.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ShopController : Controller
     {
         private readonly ILogger<ShopController> _logger;
@@ -29,9 +31,49 @@ namespace CasualShop.Controllers
 
         public IActionResult Index(int page = 1)
         {
+            //SelectList brands = new SelectList(_serviceManager.Brands.GetBrandsList(), "Id", "Name");
+            //ViewBag.Brands = brands;
+            //SelectList tags = new SelectList(_serviceManager.Tags.GetTagsList(), "Id", "Name");
+            //ViewBag.Tags = tags;
+
             var _clothes = _serviceManager.Clothes.GetClothesList();
-            var model = PagingList.Create(_clothes, 8, page);
+            var model = PagingList.Create(_clothes, 9, page);
             //var _clothes = _serviceManager.Clothes.GetClothesList();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Index(int? brand, int? tag, int page = 1)
+        {            
+                List<BrandDto> brandsList = _serviceManager.Brands.GetBrandsList();
+                brandsList.Insert(0, new BrandDto { Name = "All", Id = 0 });
+                SelectList brands = new SelectList(brandsList, "Id", "Name");
+                ViewBag.Brands = brands;
+
+                List<TagDto> tagsList = _serviceManager.Tags.GetTagsList();
+                tagsList.Insert(0, new TagDto { Name = "All", Id = 0 });
+                SelectList tags = new SelectList(tagsList, "Id", "Name");
+                ViewBag.Tags = tags;
+            
+
+
+            IEnumerable<ClothesDto> clothes = _serviceManager.Clothes.GetClothesList();
+
+            if (brand != null && brand != 0)
+            {
+                clothes = clothes.Where(c => c.ClothesBrand.Id == brand);
+            }
+            if (tag != null && tag != 0)
+            {
+                clothes = clothes.Where(c => c.Tag.Id == tag);
+            }
+            if (brand != null && brand != 0 && tag != null && tag != 0)
+            {
+                clothes = clothes.Where(c => c.ClothesBrand.Id == brand && c.Tag.Id == tag);
+            }
+
+            var model = PagingList.Create(clothes, 9, page);
 
             return View(model);
         }

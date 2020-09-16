@@ -26,6 +26,11 @@ namespace CasualShop.Controllers
             return View(model);
         }
             
+        public IActionResult Delete(int basketId)
+        {
+            _servicesManager.Baskets.DeleteBasketById(basketId);
+            return RedirectToAction("Index");
+        }
         public IActionResult AddBasket(string userId, int clothesId)
         {
             BasketEditDto _editModel = _servicesManager.Baskets.CreateBasketEditDto();
