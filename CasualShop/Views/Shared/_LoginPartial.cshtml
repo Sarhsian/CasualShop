@@ -15,9 +15,15 @@
             <button id="logout" type="submit" class="nav-link btn btn-link text-light">Logout</button>
         </form>
     </li>
-}
-else
-{
+        @if (UserManager.GetUserId(User) == "6d0e867b-efdf-46c5-a271-41cdc90881b7")
+        {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="Admin" asp-action="Index" title="Admin">Admin panel</a>
+        </li>
+        }
+    }
+    else
+    {
     <li class="nav-item">
         <a class="nav-link text-light" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>

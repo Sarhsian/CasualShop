@@ -31,7 +31,9 @@ namespace CasualShop.Controllers
             _servicesManager.Baskets.DeleteBasketById(basketId);
             return RedirectToAction("Index");
         }
-        public IActionResult AddBasket(string userId, int clothesId)
+
+        [HttpPost]
+        public IActionResult AddToBasket(string userId, int clothesId)
         {
             BasketEditDto _editModel = _servicesManager.Baskets.CreateBasketEditDto();
 
@@ -42,7 +44,7 @@ namespace CasualShop.Controllers
             _editModel.isProcessed = false;
             _servicesManager.Baskets.SaveBasketEditDtoToDb(_editModel);
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         public IActionResult BasketEditor(int basketId)

@@ -68,7 +68,6 @@
             <div class="col-12 col-md-5">
 
                 <div class="heading-md mt-4" style="font-size: 26px;">@Model.Name</div>
-                <div class="mt-2">@*Size*@(In development)</div>
                 <div class="mt-4 d-flex align-items-center">
                     <span class="price price-current">@Model.Price $</span><!---->
                 </div>
@@ -84,10 +83,18 @@
                 <div>
                     @if(SignInManager.IsSignedIn(User))
                     {
-                    <button class="btn btn-dark d-flex justify-content-center align-items-center my-4 py-3 px-5 font-weight-light text-nowrap" 
+                        <form asp-action="AddToBasket"asp-controller="Basket" >
+                            <input type="hidden" name="userId" value="@UserManager.GetUserId(User)"/>
+                            <input type="hidden" name="clothesId" value="@Model.Id"/>
+                            <input type="submit" class="btn btn-dark d-flex justify-content-center align-items-center my-4 py-3 px-5 font-weight-light text-nowrap"
+                                   value="Add to basket"/>
+                        </form>
+
+                    @*<button  class="btn btn-dark d-flex justify-content-center align-items-center my-4 py-3 px-5 font-weight-light text-nowrap" 
                             style="font-size: 24px;"
                             onclick="location.href='@Url.Action("AddBasket","Basket", 
-                                       new { userId = UserManager.GetUserId(User), clothesId = Model.Id})'"> Add to basket </button>                    
+                                       new { userId = UserManager.GetUserId(User), clothesId = Model.Id})'"> Add to basket 
+                    </button>*@                    
                     }else
                     {
                     <button class="btn btn-dark justify-content-center align-items-center my-4 py-3 px-5 font-weight-light text-nowrap"
