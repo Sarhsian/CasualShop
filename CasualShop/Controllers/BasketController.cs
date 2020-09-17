@@ -45,41 +45,33 @@ namespace CasualShop.Controllers
             _servicesManager.Baskets.SaveBasketEditDtoToDb(_editModel);
 
             return RedirectToAction("Index");
-        }
+        }        
 
-        public IActionResult BasketEditor(int basketId)
-        {
-            //BasketEditDto _editModel;
-            //_editModel = _servicesManager.Baskets.get
-                    
-            return View();
-        }
         [HttpPost]
         public IActionResult Index(string basketCurrentUserId, string firstName, string lastName, string phoneNum, string email)
         {
-            var _basketModel = _servicesManager.Baskets.GetBasketsList().Where(b => b.CurrentUser == basketCurrentUserId);
-            
-            EmailService emailService = new EmailService();
+            var _basketModel = _servicesManager.Baskets.GetBasketsList().Where(b => b.CurrentUser == basketCurrentUserId && b.isProcessed == false);
+           
+                EmailService emailService = new EmailService();
 
-            string emailText = "<div>Firstname: "+ firstName + "</div><div>Lastname: " + lastName + "</div><div>Phone: " + phoneNum +
-                "</div><div>Email: " + email + "</div><div>";
-            int totalPrice = 0;
-            foreach (var item in _basketModel)
-            {
-               if(item.CurrentUser == basketCurrentUserId)
+                string emailText = "<div>Firstname: " + firstName + "</div><div>Lastname: " + lastName + "</div><div>Phone: " + phoneNum +
+                    "</div><div>Email: " + email + "</div><div>";
+                int totalPrice = 0;
+                foreach (var item in _basketModel)
                 {
-                    var clothesModel = _servicesManager.Clothes.GetClothesModelById(item.ClothesId);
-                    emailText = emailText + "<div>Clothes name: " + clothesModel.Name + " Price:"+ clothesModel.Price + "$</div>";
-                    totalPrice += clothesModel.Price;
+                    if (item.CurrentUser == basketCurrentUserId && item.isProcessed == false)
+                    {
+                        var clothesModel = _servicesManager.Clothes.GetClothesModelById(item.ClothesId);
+                        emailText = emailText + "<div>Clothes name: " + clothesModel.Name + " Price:" + clothesModel.Price + "$</div>";
+                        totalPrice += clothesModel.Price;
+                        item.isProcessed = true;
+                    }
+                    _servicesManager.Baskets.UpdateBasketsDtoToDb(item);
                 }
-            }
-            emailText += "<div style=\"font-weight:bold\">Total price: " + totalPrice.ToString() + "</div></div>"; 
-            emailService.SendEmail("sargsyan.mikhail.2017@gmail.com", "CasualShop Order",
-                emailText);
-            return RedirectToAction("Index", "Shop");
+                emailText += "<div style=\"font-weight:bold\">Total price: " + totalPrice.ToString() + "</div></div>";
+                emailService.SendEmail("sargsyan.mikhail.2017@gmail.com", "CasualShop Order",
+                    emailText);
+                return RedirectToAction("Index", "Shop");            
         }
     }
-
-
-
 }

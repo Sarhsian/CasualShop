@@ -10,6 +10,7 @@ namespace CasualShop.DAL.Repository.Interfaces
         IEnumerable<Basket> GetAllBaskets();
         Basket GetBasketById(int basketId);
         void SaveBaskets(Basket basket);
+        void UpdateBaskets(Basket basket);
         void DeleteBaskets(Basket basket);
     }
 }

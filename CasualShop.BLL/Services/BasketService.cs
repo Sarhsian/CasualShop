@@ -78,6 +78,19 @@ namespace CasualShop.BLL.Services
             return BasketDBToViewModelById(_basketDbModel.Id);
         }
 
+        public void UpdateBasketsDtoToDb(BasketDto basketEditDto)
+        {
+            Basket _basketDbModel;
+            _basketDbModel = _dataManager.Baskets.GetBasketById(basketEditDto.Id);
+
+            _basketDbModel.CurrentUser = basketEditDto.CurrentUser;
+            _basketDbModel.Count = basketEditDto.Count;
+            _basketDbModel.isProcessed = basketEditDto.isProcessed;
+            _basketDbModel.BasketClothesId = basketEditDto.ClothesId;
+
+            _dataManager.Baskets.UpdateBaskets(_basketDbModel);
+        }
+
         public void DeleteBasketById(int basketId)
         {
             Basket _basketDbModel;            

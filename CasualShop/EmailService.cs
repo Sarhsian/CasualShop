@@ -25,7 +25,7 @@ namespace CasualShop
             {
                 //await client.ConnectAsync("smtp.yandex.ru", 25, false);
                 client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("sargsyan.mikhail.2017@gmail.com", "");
+                client.Authenticate("sargsyan.mikhail.2017@gmail.com", "SARgsYan9mikhail820157161514131211W7");
                 client.Send(emailMessage);
 
                 client.Disconnect(true);
