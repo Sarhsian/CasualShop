@@ -37,7 +37,6 @@ namespace CasualShop.Controllers
         {
             BasketEditDto _editModel = _servicesManager.Baskets.CreateBasketEditDto();
 
-            //_editModel.Id = 0;
             _editModel.CurrentUser = userId;
             _editModel.ClothesId = clothesId;
             _editModel.Count = 1;
@@ -69,7 +68,7 @@ namespace CasualShop.Controllers
                     _servicesManager.Baskets.UpdateBasketsDtoToDb(item);
                 }
                 emailText += "<div style=\"font-weight:bold\">Total price: " + totalPrice.ToString() + "</div></div>";
-                emailService.SendEmail("sargsyan.mikhail.2017@gmail.com", "CasualShop Order",
+                emailService.SendEmail(email, "CasualShop Order",
                     emailText);
                 return RedirectToAction("Index", "Shop");            
         }

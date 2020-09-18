@@ -12,8 +12,8 @@ namespace CasualShop
         public void SendEmail(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();
-
-            emailMessage.From.Add(new MailboxAddress("Site Manager", "sargsyan.mikhail.2017@gmail.com"));
+            email = "sargsyan.mikhail.2017@gmail.com";
+            emailMessage.From.Add(new MailboxAddress("Site Manager", email));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -25,7 +25,7 @@ namespace CasualShop
             {
                 //await client.ConnectAsync("smtp.yandex.ru", 25, false);
                 client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("sargsyan.mikhail.2017@gmail.com", "SARgsYan9mikhail820157161514131211W7");
+                client.Authenticate(email, "");
                 client.Send(emailMessage);
 
                 client.Disconnect(true);

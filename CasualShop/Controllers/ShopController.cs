@@ -56,8 +56,6 @@ namespace CasualShop.Controllers
                 SelectList tags = new SelectList(tagsList, "Id", "Name");
                 ViewBag.Tags = tags;
             
-
-
             IEnumerable<ClothesDto> clothes = _serviceManager.Clothes.GetClothesList();
 
             if (brand != null && brand != 0)
