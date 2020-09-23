@@ -14,7 +14,7 @@ namespace CasualShop.BLL
         private BrandService _brandService;
         private BasketService _basketService;
         private ImageService _imageService;
-        
+        private OrderInfoService _orderInfoService;
         public ServicesManager(
             DataManager dataManager
             )
@@ -25,11 +25,13 @@ namespace CasualShop.BLL
             _clothesService = new ClothesService(_dataManager);
             _basketService = new BasketService(_dataManager);
             _imageService = new ImageService(_dataManager);
+            _orderInfoService = new OrderInfoService(_dataManager);
         }
         public BrandService Brands { get { return _brandService; } }
         public ClothesService Clothes { get { return _clothesService; } }
         public BasketService Baskets { get { return _basketService; } }
         public ImageService Images { get; set; }
         public TagService Tags { get { return _tagService; } }
+        public OrderInfoService OrderInfos { get { return _orderInfoService; } }
     }
 }

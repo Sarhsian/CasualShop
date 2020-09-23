@@ -132,7 +132,7 @@ namespace CasualShop.Controllers
                     return NotFound();
                 }
 
-                Clothes clothes = await _context.Clothes.FindAsync(id);
+                Clothes clothes = await _context.Clothes.Include(i => i.Image).FirstOrDefaultAsync(i => i.Id == id);
                 if (clothes != null)
                 {
                     SelectList brands = new SelectList(_context.Brands, "Id", "Name", clothes.BrandId);
@@ -148,12 +148,51 @@ namespace CasualShop.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Edit(Clothes clothes)
+        public async Task<IActionResult> Edit(Clothes clothes, int imgId)
         {
             if (_userManager.GetUserId(User) == adminId)
             {
-                _context.Entry(clothes).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+                //if (ModelState.IsValid)
+                //{
+                if (clothes.Image.ImageFile != null)
+                {
+
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(clothes.Image.ImageFile.FileName);
+                    string extention = Path.GetExtension(clothes.Image.ImageFile.FileName);
+                    clothes.Image.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
+                    string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await clothes.Image.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    Image img = new Image
+                    {
+                        ImageName = clothes.Image.ImageName,
+                        Title = clothes.Image.Title
+                    };
+
+                    await _context.Images.AddAsync(img);
+                    await _context.SaveChangesAsync();
+
+                    clothes.Image = null;
+                    clothes.ImageId = _context.Images.FirstOrDefault(i => i.ImageName == img.ImageName).Id;
+                    _context.Entry(clothes).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    clothes.ImageId = imgId;
+                    _context.Entry(clothes).State = EntityState.Modified;
+                    //_context.Add(clothes);
+                    await _context.SaveChangesAsync();
+                }
+                //}
+
+                //_context.Entry(clothes).State = EntityState.Modified;
+                //await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             else return Permission();

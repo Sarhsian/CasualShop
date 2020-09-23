@@ -10,45 +10,64 @@
 <h4>Clothes</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">       
+    <div class="col-md-4">        
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <fieldset>
+                    <legend>Clothes</legend>
 
-        @using (Html.BeginForm())
-        {
-        <fieldset>
-            <legend>Clothes</legend>
+                    @Html.HiddenFor(model => model.Id)
 
-            @Html.HiddenFor(model => model.Id)
+                    <p>
+                        Clothes <br />
+                        @Html.EditorFor(model => model.Name)
+                    </p>
 
-            <p>
-                Clothes <br />
-                @Html.EditorFor(model => model.Name)
-            </p>
+                    <p>
+                        Price <br />
+                        @Html.EditorFor(model => model.Price)
+                    </p>
 
-            <p>
-                Price <br />
-                @Html.EditorFor(model => model.Price)
-            </p>
-
-            <p>
-                Description  <br />
-                @Html.EditorFor(model => model.Description)
-            </p>
-            <p>
-                Brands <br />
-                @Html.DropDownListFor(model => model.BrandId, ViewBag.Brands as SelectList)
-            </p>
-            <p>
-                Tags <br />
-                @Html.DropDownListFor(model => model.TagId, ViewBag.Tags as SelectList)
-            </p>
-            
-            <p>
-                <input type="submit" value="Save" />
-            </p>
-        </fieldset>
-        }
-
-    </div>
+                    <p>
+                        Description  <br />
+                        @Html.EditorFor(model => model.Description)
+                    </p>
+                    <p>
+                        Brands <br />
+                        @Html.DropDownListFor(model => model.BrandId, ViewBag.Brands as SelectList)
+                    </p>
+                    <p>
+                        Tags <br />
+                        @Html.DropDownListFor(model => model.TagId, ViewBag.Tags as SelectList)
+                    </p>
+                    <p>
+                        <div class="form-group">
+                            <label asp-for="Image.Title"></label>
+                            <input asp-for="Image.Title" accept="image/*" />
+                            <span asp-validation-for="Image.Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image.ImageFile"></label>
+                            <input asp-for="Image.ImageFile" accept="image/*" />
+                            <span asp-validation-for="Image.ImageFile" class="text-danger"></span>
+                        </div>
+                        @if (Model.Image != null)
+                        {
+                            <img src="@("~/Image/" + @Model.Image.ImageName)" asp-append-version="true" />
+                            <input name="imgId" type="hidden" value="@Model.ImageId" />
+                        }
+                        else
+                        {
+                            <div>
+                                <label>No Image</label>
+                            </div>
+                        }
+                    </p>
+                    <p>
+                        <input type="submit" value="Save" />
+                    </p>
+                </fieldset>
+                </form>               
+        </div>
 </div>
 
 <div>

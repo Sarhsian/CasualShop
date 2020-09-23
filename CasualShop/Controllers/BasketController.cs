@@ -22,7 +22,7 @@ namespace CasualShop.Controllers
         }
         public IActionResult Index()
         {
-            var model = _servicesManager.Baskets.GetBasketsList();
+            var model = new OrderInfoDto();
             return View(model);
         }
             
@@ -47,14 +47,14 @@ namespace CasualShop.Controllers
         }        
 
         [HttpPost]
-        public IActionResult Index(string basketCurrentUserId, string firstName, string lastName, string phoneNum, string email)
+        public IActionResult Index(string basketCurrentUserId, OrderInfoDto orderInfoDto)
         {
             var _basketModel = _servicesManager.Baskets.GetBasketsList().Where(b => b.CurrentUser == basketCurrentUserId && b.isProcessed == false);
            
                 EmailService emailService = new EmailService();
 
-                string emailText = "<div>Firstname: " + firstName + "</div><div>Lastname: " + lastName + "</div><div>Phone: " + phoneNum +
-                    "</div><div>Email: " + email + "</div><div>";
+                string emailText = "<div>Firstname: " + orderInfoDto.FirstName + "</div><div>Lastname: " + orderInfoDto.LastName + "</div><div>Phone: " + orderInfoDto.PhoneNum +
+                    "</div><div>Email: " + orderInfoDto.Email + "</div><div>";
                 int totalPrice = 0;
                 foreach (var item in _basketModel)
                 {
@@ -68,7 +68,7 @@ namespace CasualShop.Controllers
                     _servicesManager.Baskets.UpdateBasketsDtoToDb(item);
                 }
                 emailText += "<div style=\"font-weight:bold\">Total price: " + totalPrice.ToString() + "</div></div>";
-                emailService.SendEmail(email, "CasualShop Order",
+                emailService.SendEmail(orderInfoDto.Email, "CasualShop Order",
                     emailText);
                 return RedirectToAction("Index", "Shop");            
         }
